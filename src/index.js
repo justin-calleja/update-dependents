@@ -9,10 +9,10 @@ function updateDependentFactory(pkgName, dependentType, version) {
 /**
  * Updates the version of pkgName in each dependent if it differs from the version of
  * pkgName in its package.json.
- * @param  {[type]}   pkgName     the pkgName whose version will be updated in the dependents
- * @param  {[type]}   opts        can pass in opts.versionPrefix:string (default '~')
- * @param  {Function} cb          on done callback (err, result)
- * @return {Object.<IndexInfo>}           [description]
+ * @param  {string}   pkgName       the pkgName whose version will be updated in the dependents
+ * @param  {[Object]} opts          can pass in opts.versionPrefix:string (default '~') and paths
+ * @param  {Function} cb            on done callback (err, result)
+ * @return {Object.<IndexInfo>}
  */
 function updateDependents(pkgName, opts, cb) {
   var paths = opts.paths || [];
@@ -21,14 +21,19 @@ function updateDependents(pkgName, opts, cb) {
   pkgDependents(pkgName, { paths: paths }, (err, result) => {
     if (err) cb(err, result);
 
-    var pkgAndDependents = result[pkgName];
+    var copy = JSON.parse(JSON.stringify(result));
+
+    var pkgAndDependents = copy[pkgName];
     var dependents = pkgAndDependents.dependents;
     var version = versionPrefix + pkgAndDependents.pkgJSON.version;
     dependents.dependencyDependents.forEach(updateDependentFactory(pkgName, 'dependencies', version));
     dependents.peerDependencyDependents.forEach(updateDependentFactory(pkgName, 'peerDependencies', version));
     dependents.devDependencyDependents.forEach(updateDependentFactory(pkgName, 'devDependencies', version));
 
-    cb(null, result);
+    cb(null, {
+      original: result,
+      updated: copy
+    });
   });
 }
 

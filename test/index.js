@@ -10,11 +10,15 @@ suite('update-dependents interface', function() {
     updateDependents('d', {
       paths: dirsInFixtures
     }, (err, result) => {
-      assert.equal(result.d.dependents.peerDependencyDependents[0].pkgJSON.name, 'a', 'expecting pkg a to be a peerDependencyDependent of pkg d');
-      assert.equal(result.d.dependents.devDependencyDependents[0].pkgJSON.name, 'b', 'expecting pkg b to be a devDependencyDependent of pkg d');
+      var updated = result.updated;
+      assert.equal(updated.d.dependents.peerDependencyDependents[0].pkgJSON.name, 'a', 'expecting pkg a to be a peerDependencyDependent of pkg d');
+      assert.equal(updated.d.dependents.devDependencyDependents[0].pkgJSON.name, 'b', 'expecting pkg b to be a devDependencyDependent of pkg d');
+      assert.equal(updated.d.dependents.peerDependencyDependents[0].pkgJSON.peerDependencies.d, '~1.0.0', 'expecting the reference to d to be for version ~1.0.0');
+      assert.equal(updated.d.dependents.devDependencyDependents[0].pkgJSON.devDependencies.d, '~1.0.0', 'expecting the reference to d to be for version ~1.0.0');
 
-      assert.equal(result.d.dependents.peerDependencyDependents[0].pkgJSON.peerDependencies.d, '~1.0.0', 'expecting the reference to d to be for version ~1.0.0');
-      assert.equal(result.d.dependents.devDependencyDependents[0].pkgJSON.devDependencies.d, '~1.0.0', 'expecting the reference to d to be for version ~1.0.0');
+      var original = result.original;
+      assert.equal(original.d.dependents.peerDependencyDependents[0].pkgJSON.peerDependencies.d, '^0.0.1', 'expecting the original value for the version of d in its peer dependent pkg a');
+      assert.equal(original.d.dependents.devDependencyDependents[0].pkgJSON.devDependencies.d, '^0.0.1', 'expecting the original value for the version of d in its dev dependent pkg b');
       cb();
     });
   });
