@@ -24,7 +24,13 @@ function updateDependents(pkgName, opts, cb) {
     var copy = JSON.parse(JSON.stringify(result));
 
     var pkgAndDependents = copy[pkgName];
+    if (pkgAndDependents === undefined) {
+      cb(new Error(`no result found for ${pkgName}`), null);
+    }
     var dependents = pkgAndDependents.dependents;
+    if (dependents === undefined) {
+      cb(new Error(`no dependents found for ${pkgName}`), null);
+    }
     var version = versionPrefix + pkgAndDependents.pkgJSON.version;
     dependents.dependencyDependents.forEach(updateDependentFactory(pkgName, 'dependencies', version));
     dependents.peerDependencyDependents.forEach(updateDependentFactory(pkgName, 'peerDependencies', version));
