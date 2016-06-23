@@ -1,0 +1,31 @@
+{
+  "dependencyDependents": {},
+  "peerDependencyDependents": {
+    "a": {
+      "absPath": "/Users/justin/pkg-dependents-home/pkg-json-info-dict/test/fixtures/dir1/a",
+      "pkgJSON": {
+        "name": "a",
+        "version": "0.0.1",
+        "dependencies": {
+          "b": "^0.0.1",
+          "c": "^0.0.2"
+        },
+        "peerDependencies": {
+          "d": "^0.0.1"
+        }
+      }
+    }
+  },
+  "devDependencyDependents": {
+    "b": {
+      "absPath": "/Users/justin/pkg-dependents-home/pkg-json-info-dict/test/fixtures/dir2/b",
+      "pkgJSON": {
+        "name": "b",
+        "version": "0.0.1",
+        "devDependencies": {
+          "d": "^0.0.1"
+        }
+      }
+    }
+  }
+}

@@ -1,16 +1,12 @@
 var repl = require('repl');
-var updateDependents = require('../src');
-var path = require('path');
+var updateDependents = require('../lib').default;
 
 var replServer = repl.start({
   prompt: '> '
 });
 
 replServer.context.updateDependents = updateDependents;
+replServer.context.dDependents = require('./fixtures/d-dependents');
+replServer.context.dDependentsUpdated = updateDependents('d', '2.0.0', replServer.context.dDependents);
 
-var fixturesPath = replServer.context.fixturesPath = path.join(__dirname, 'fixtures');
-var dirsInFixtures = [path.join(fixturesPath, 'dir1'), path.join(fixturesPath, 'dir2')];
-
-updateDependents('d', { paths: dirsInFixtures }, (err, res) => {
-  replServer.context.res = res;
-});
+replServer.context.print = (str) => console.log(JSON.stringify(str, null, 2));
