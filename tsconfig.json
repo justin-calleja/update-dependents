@@ -26,6 +26,7 @@
   "buildOnSave": false,
   "files": [
     "src/index.ts",
+    "src/report.ts",
     "src/updateDependents.ts",
     "typings/index.d.ts",
     "typings/modules/lodash/index.d.ts"
