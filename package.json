@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
+    "postinstall": "typings install",
     "clean": "rm -rf ./lib && mkdir ./lib",
     "build": "npm run clean && tsc -p ./tsconfig.json",
     "prepublish": "npm run test",
@@ -24,9 +25,10 @@
     "chai": "^3.5.0",
     "eslint": "^2.12.0",
     "mocha": "^2.5.3",
-    "pkg-json-info-dict": "0.0.3",
-    "pkg-dependents": "~0.0.9",
-    "typescript": "^1.8.10"
+    "pkg-dependents": "~0.0.11",
+    "pkg-json-info-dict": "~0.0.5",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.0"
   },
   "dependencies": {
     "lodash": "^4.13.1"
