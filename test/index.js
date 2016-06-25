@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
 var updateDependents = require('../lib').default;
 
-var dDependents = require('./fixtures/d-dependents');
+var dDependents = require('./fixtures/dDependents');
 
 describe('update-dependents', function() {
   it('check original dependents remain unchanged and updated dependents have the update', function () {

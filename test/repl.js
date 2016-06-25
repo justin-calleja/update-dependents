@@ -6,7 +6,7 @@ var replServer = repl.start({
 });
 
 replServer.context.updateDependents = updateDependents;
-replServer.context.dDependents = require('./fixtures/d-dependents');
+replServer.context.dDependents = require('./fixtures/dDependents');
 replServer.context.dDependentsUpdated = updateDependents('d', '2.0.0', replServer.context.dDependents);
 
 replServer.context.print = (str) => console.log(JSON.stringify(str, null, 2));
