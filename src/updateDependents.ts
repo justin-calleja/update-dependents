@@ -15,7 +15,7 @@ export interface Opts {
   * @param  {Opts}       opts            options (see Opts type)
   * @return {Dependents}                 an updated copy of the dependents
   */
-export default function updateDependents(pkgName: string, newVersion: string, dependents: Dependents, opts: Opts = {}): Dependents {
+export function updateDependents(pkgName: string, newVersion: string, dependents: Dependents, opts: Opts = {}): Dependents {
   if (!pkgName) throw new Error('Missing package name');
   if (!dependents) throw new Error('Missing dependents');
   if (!newVersion) throw new Error('Missing version to update to');

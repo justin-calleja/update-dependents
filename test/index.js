@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var updateDependents = require('../lib').default;
+var updateDependents = require('../lib').updateDependents;
 
 var dDependents = require('./fixtures/dDependents');
 
