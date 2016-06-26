@@ -1,25 +1,17 @@
 import { Dependents } from 'pkg-dependents/lib';
 import { PkgJSONInfo } from 'pkg-json-info-dict/lib';
 
-export {
-  // types:
-  UpdateReportRow,
-  // functions:
-  createUpdateReportRows
-};
+export const NO_VERSION = 'N/A';
 
-interface UpdateReportRow {
+export interface UpdateReportRow {
   package: string;
   dependent: string;
   depVersionRange: string;
   peerDepVersionRange: string;
   devDepVersionRange: string;
-  npmUpdateGetsLatest: string;
 }
 
-const NO_VERSION = 'N/A';
-
-function createUpdateReportRows(pkg: PkgJSONInfo, dependents: Dependents): UpdateReportRow[] {
+export function createUpdateReportRows(pkg: PkgJSONInfo, dependents: Dependents): UpdateReportRow[] {
   var depRows: UpdateReportRow[] = Object.keys(dependents.dependencyDependents).map(key => {
     var dependent = dependents.dependencyDependents[key];
     var pkgVersion = dependent.pkgJSON.dependencies[pkg.pkgJSON.name];
@@ -28,8 +20,7 @@ function createUpdateReportRows(pkg: PkgJSONInfo, dependents: Dependents): Updat
       dependent: `${dependent.pkgJSON.name}@${dependent.pkgJSON.version}`,
       depVersionRange: dependent.pkgJSON.dependencies[pkg.pkgJSON.name],
       peerDepVersionRange: NO_VERSION,
-      devDepVersionRange: NO_VERSION,
-      npmUpdateGetsLatest: '?'
+      devDepVersionRange: NO_VERSION
     };
   });
   var peerDepRows: UpdateReportRow[] = Object.keys(dependents.peerDependencyDependents).map(key => {
@@ -40,8 +31,7 @@ function createUpdateReportRows(pkg: PkgJSONInfo, dependents: Dependents): Updat
       dependent: `${dependent.pkgJSON.name}@${dependent.pkgJSON.version}`,
       depVersionRange: NO_VERSION,
       peerDepVersionRange: dependent.pkgJSON.peerDependencies[pkg.pkgJSON.name],
-      devDepVersionRange: NO_VERSION,
-      npmUpdateGetsLatest: '?'
+      devDepVersionRange: NO_VERSION
     };
   });
   var devDepRows: UpdateReportRow[] = Object.keys(dependents.devDependencyDependents).map(key => {
@@ -52,8 +42,7 @@ function createUpdateReportRows(pkg: PkgJSONInfo, dependents: Dependents): Updat
       dependent: `${dependent.pkgJSON.name}@${dependent.pkgJSON.version}`,
       depVersionRange: NO_VERSION,
       peerDepVersionRange: NO_VERSION,
-      devDepVersionRange: dependent.pkgJSON.devDependencies[pkg.pkgJSON.name],
-      npmUpdateGetsLatest: '?'
+      devDepVersionRange: dependent.pkgJSON.devDependencies[pkg.pkgJSON.name]
     };
   });
 
