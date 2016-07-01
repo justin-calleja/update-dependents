@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
-    "postinstall": "typings install",
+    "postinstall": "echo 'TODO: run - typings install - to download the types if you are developing. TODO: figure out a better way'",
     "clean": "rm -rf ./lib && mkdir ./lib",
     "build": "npm run clean && tsc -p ./tsconfig.json",
     "prepublish": "npm run test",
